@@ -10,8 +10,12 @@ module ConfigFreak
       expand_hash(input, context)
     when Array
       input.map { |v| expand(v, context) }
-    when /\A{{(.+)}}\Z/
+    when /\A{{([\w.]+)}}\Z/
       evaluate_expression($1, context)
+    when /{{[\w.]+}}/
+      input.gsub(/{{([\w.]+)}}/) do
+        evaluate_expression($1, context)
+      end
     else
       input
     end

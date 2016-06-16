@@ -77,6 +77,21 @@ describe ConfigFreak do
 
     end
 
+    context "with reference embedded in a String" do
+
+      let(:input) do
+        {
+          "size" => 42,
+          "desc" => "Size {{size}}"
+        }
+      end
+
+      it "expands the reference" do
+        expect(output["desc"]).to eql("Size 42")
+      end
+
+    end
+
   end
 
 end
