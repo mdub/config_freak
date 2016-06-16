@@ -37,6 +37,46 @@ describe ConfigFreak do
 
     end
 
+    context "with complex reference" do
+
+      let(:input) do
+        {
+          "vars" => {
+            "author" => {
+              "name" => "Mike"
+            }
+          },
+          "foo" => "{{vars.author.name}}"
+        }
+      end
+
+      it "expands the reference" do
+        expect(output["foo"]).to eql("Mike")
+      end
+
+    end
+
+    context "with reference in nested object" do
+
+      let(:input) do
+        {
+          "vars" => {
+            "author" => {
+              "name" => "Mike"
+            }
+          },
+          "foo" => {
+            "bar" => "{{vars.author.name}}"
+          }
+        }
+      end
+
+      it "expands the reference" do
+        expect(output["foo"]["bar"]).to eql("Mike")
+      end
+
+    end
+
   end
 
 end
