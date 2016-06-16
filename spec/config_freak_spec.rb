@@ -22,6 +22,21 @@ describe ConfigFreak do
 
     end
 
+    context "with reference" do
+
+      let(:input) do
+        {
+          "x" => 42,
+          "y" => "{{x}}"
+        }
+      end
+
+      it "expands the reference" do
+        expect(output["y"]).to eql(42)
+      end
+
+    end
+
   end
 
 end
